@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Workout Builder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>AI Workout Builder</h1>
+        <p class="description">A personalized workout plan tailored to your goals!</p>
+
+        <form>
+            <div class="form-section">
+                <h2>1. Personal Information</h2>
+                <div class="form-group">
+                    <label for="age">What is your age?</label>
+                    <select id="age">
+                        <option value="" disabled selected>Select your age range</option>
+                        <option value="below-18">Below 18</option>
+                        <option value="18-30">18–30</option>
+                        <option value="31-45">31–45</option>
+                        <option value="46-60">46–60</option>
+                        <option value="above-60">Above 60</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gender">What is your gender?</label>
+                    <select id="gender">
+                        <option value="" disabled selected>Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>2. Current Fitness Level</h2>
+                <div class="form-group">
+                    <label for="fitness-level">How would you describe your current fitness level?</label>
+                    <select id="fitness-level">
+                        <option value="" disabled selected>Select your fitness level</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="physical-activity">Do you currently engage in any physical activity?</label>
+                    <select id="physical-activity">
+                        <option value="" disabled selected>Select activity level</option>
+                        <option value="none">No, I’m just starting out</option>
+                        <option value="light">Yes, light activities (e.g., walking, yoga)</option>
+                        <option value="moderate">Yes, moderate activities (e.g., running, gym workouts)</option>
+                        <option value="intense">Yes, intense activities (e.g., competitive sports, weightlifting)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="weight">What is your weight range?</label>
+                    <select id="weight">
+                        <option value="" disabled selected>Select weight range</option>
+                        <option value="below-50">Below 50 kg</option>
+                        <option value="50-70">50–70 kg</option>
+                        <option value="71-90">71–90 kg</option>
+                        <option value="above-90">Above 90 kg</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="height">What is your height range?</label>
+                    <select id="height">
+                        <option value="" disabled selected>Select height range</option>
+                        <option value="below-150">Below 150 cm</option>
+                        <option value="150-170">150–170 cm</option>
+                        <option value="171-190">171–190 cm</option>
+                        <option value="above-190">Above 190 cm</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>3. Fitness Goals</h2>
+                <div class="form-group">
+                    <label for="goal">What is your primary fitness goal?</label>
+                    <select id="goal">
+                        <option value="" disabled selected>Select your goal</option>
+                        <option value="weight-loss">Weight Loss</option>
+                        <option value="muscle-gain">Muscle Gain</option>
+                        <option value="flexibility">Improve Flexibility</option>
+                        <option value="endurance">Increase Endurance</option>
+                        <option value="general-fitness">General Fitness</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="specific-target">Do you have a specific target?</label>
+                    <select id="specific-target">
+                        <option value="" disabled selected>Select target</option>
+                        <option value="no-target">No, I just want to stay healthy</option>
+                        <option value="weight-loss">Yes, I want to lose weight (e.g., 5–10 kg)</option>
+                        <option value="muscle-gain">Yes, I want to gain muscle</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>4. Health Information</h2>
+                <div class="form-group">
+                    <label for="medical-condition">Do you have any medical conditions or physical limitations?</label>
+                    <select id="medical-condition">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="none">No, I’m healthy</option>
+                        <option value="back-pain">Yes, I have back pain</option>
+                        <option value="chronic-condition">Yes, I have a chronic condition (e.g., diabetes, hypertension)</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diet">Do you follow any specific diet or have dietary restrictions?</label>
+                    <select id="diet">
+                        <option value="" disabled selected>Select your diet</option>
+                        <option value="no-restrictions">No restrictions</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="vegan">Vegan</option>
+                        <option value="gluten-free">Gluten-Free</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="medications">Are you taking any medications that may impact physical activity?</label>
+                    <select id="medications">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="no">No</option>
+                        <option value="yes">Yes: [Specify]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>5. Activity Preferences</h2>
+                <div class="form-group">
+                    <label for="workout-type">What type of workouts do you prefer?</label>
+                    <select id="workout-type">
+                        <option value="" disabled selected>Select workout type</option>
+                        <option value="gym">Gym Workouts</option>
+                        <option value="home">Home Workouts</option>
+                        <option value="outdoor">Outdoor Activities</option>
+                        <option value="yoga">Yoga</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="workout-days">How many days per week can you commit to exercising?</label>
+                    <select id="workout-days">
+                        <option value="" disabled selected>Select days</option>
+                        <option value="1-2">1–2 days</option>
+                        <option value="3-4">3–4 days</option>
+                        <option value="5-6">5–6 days</option>
+                        <option value="everyday">Every day</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="workout-length">How much time can you dedicate to each workout session?</label>
+                    <select id="workout-length">
+                        <option value="" disabled selected>Select duration</option>
+                        <option value="15-30">15–30 minutes</option>
+                        <option value="30-45">30–45 minutes</option>
+                        <option value="60+">1 hour or more</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-section">
+                <h2>6. Diet and Nutrition</h2>
+                <div class="form-group">
+                    <label for="diet-recommendations">Are you open to dietary recommendations?</label>
+                    <select id="diet-recommendations">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No, I prefer to stick to my current diet</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="meals">How many meals do you typically have in a day?</label>
+                    <select id="meals">
+                        <option value="" disabled selected>Select meals per day</option>
+                        <option value="2">2 meals</option>
+                        <option value="3">3 meals</option>
+                        <option value="4+">4 or more meals</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="snacking">Do you snack often? If yes, what are your typical snacks?</label>
+                    <select id="snacking">
+                        <option value="" disabled selected>Select snacking preference</option>
+                        <option value="no">No, I don’t snack</option>
+                        <option value="healthy">Yes, I snack on fruits or nuts</option>
+                        <option value="packaged">Yes, I snack on packaged foods (e.g., chips, cookies)</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>7. Progress Tracking</h2>
+                <div class="form-group">
+                    <label for="progress-frequency">How often would you like to track your progress?</label>
+                    <select id="progress-frequency">
+                        <option value="" disabled selected>Select tracking frequency</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="bi-weekly">Bi-weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="progress-metrics">Are there specific metrics you want to monitor?</label>
+                    <select id="progress-metrics">
+                        <option value="" disabled selected>Select metrics</option>
+                        <option value="weight">Weight</option>
+                        <option value="body-fat">Body Fat Percentage</option>
+                        <option value="endurance">Endurance</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>8. Motivation and Challenges</h2>
+                <div class="form-group">
+                    <label for="motivation">What motivates you to stay fit?</label>
+                    <select id="motivation">
+                        <option value="" disabled selected>Select your motivation</option>
+                        <option value="health">Health reasons</option>
+                        <option value="appearance">Appearance and self-confidence</option>
+                        <option value="family">Family or social reasons</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="challenges">What are the main challenges you face in maintaining fitness?</label>
+                    <select id="challenges">
+                        <option value="" disabled selected>Select challenges</option>
+                        <option value="time">Lack of time</option>
+                        <option value="consistency">Difficulty staying consistent</option>
+                        <option value="knowledge">Lack of knowledge about workouts</option>
+                        <option value="other">Other: [Specify]</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <button type="submit" class="run-btn">⚡ Run</button>
+            </div>
+        </form>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
