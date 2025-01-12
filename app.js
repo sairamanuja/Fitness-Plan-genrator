@@ -4,6 +4,40 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
+        // Get all select elements
+        const selectElements = form.querySelectorAll('select');
+        let isValid = true;
+        let firstInvalidField = null;
+
+        // Check each select element
+        selectElements.forEach(select => {
+            // Remove any existing error styling
+            select.classList.remove('invalid-field');
+            const label = select.previousElementSibling;
+            if (label) {
+                label.classList.remove('invalid-label');
+            }
+
+            // Check if a value is selected
+            if (!select.value) {
+                isValid = false;
+                select.classList.add('invalid-field');
+                if (label) {
+                    label.classList.add('invalid-label');
+                }
+                if (!firstInvalidField) {
+                    firstInvalidField = select;
+                }
+            }
+        });
+
+        // If form is not valid, show error message and stop submission
+        if (!isValid) {
+            alert("Please fill in all required fields");
+            firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
         // Collect form data
         const formData = {
             age: document.getElementById("age").value,
@@ -50,5 +84,18 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error submitting form:", error);
             alert("An error occurred. Please try again later.");
         }
+    });
+
+    // Add change event listeners to remove error styling when user selects a value
+    form.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', () => {
+            if (select.value) {
+                select.classList.remove('invalid-field');
+                const label = select.previousElementSibling;
+                if (label) {
+                    label.classList.remove('invalid-label');
+                }
+            }
+        });
     });
 });

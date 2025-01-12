@@ -117,3 +117,44 @@ input:focus {
         font-size: 1.25rem;
     }
 }
+
+/* Form validation styles */
+.invalid-field {
+    border-color: #dc3545 !important;
+    background-color: #fff8f8;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.25);
+}
+
+.invalid-label {
+    color: #dc3545;
+}
+
+/* Add a required field indicator */
+.form-group label::after {
+    content: " *";
+    color: #dc3545;
+}
+
+/* Tooltip for invalid fields */
+.invalid-field:hover::after {
+    content: "This field is required";
+    position: absolute;
+    background: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-left: 10px;
+    z-index: 1;
+}
+
+/* Animation for invalid fields */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.invalid-field {
+    animation: shake 0.4s ease-in-out;
+}
