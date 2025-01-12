@@ -1,4 +1,3 @@
-/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -37,7 +36,6 @@ h1 {
     text-align: center;
 }
 
-/* Form Section Styling */
 .form-section {
     margin-bottom: 2rem;
 }
@@ -81,7 +79,6 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
 }
 
-/* Button Styling */
 .run-btn {
     display: block;
     width: 100%;
@@ -103,7 +100,6 @@ input:focus {
     transform: scale(0.98);
 }
 
-/* Responsive Layout */
 @media (max-width: 768px) {
     .container {
         padding: 1.5rem;
@@ -118,7 +114,6 @@ input:focus {
     }
 }
 
-/* Form validation styles */
 .invalid-field {
     border-color: #dc3545 !important;
     background-color: #fff8f8;
@@ -129,13 +124,11 @@ input:focus {
     color: #dc3545;
 }
 
-/* Add a required field indicator */
 .form-group label::after {
     content: " *";
     color: #dc3545;
 }
 
-/* Tooltip for invalid fields */
 .invalid-field:hover::after {
     content: "This field is required";
     position: absolute;
@@ -148,7 +141,6 @@ input:focus {
     z-index: 1;
 }
 
-/* Animation for invalid fields */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-10px); }

@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const errorElement = document.getElementById('error');
     const fitnessPlanElement = document.getElementById('fitness-plan');
 
-    // Loading text animation
     const loadingTexts = [
         "Analyzing your fitness goals...",
         "Customizing your workout plan...",
@@ -32,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`https://fitness-plan-genrator-production.up.railway.app/generate-fitness-plan/${userId}`);
+        const response = await fetch(`http://localhost:5000/generate-fitness-plan/${userId}`);
         
         if (!response.ok) {
             throw new Error('Failed to generate fitness plan');
@@ -40,14 +39,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const data = await response.json();
         
-        // Clear the loading interval and hide loading element
         clearInterval(loadingInterval);
         loadingElement.style.display = 'none';
         
-        // Show the fitness plan with formatted content
         fitnessPlanElement.style.display = 'block';
         
-        // Format and display the fitness plan
         const formattedPlan = formatFitnessPlan(data.fitnessPlan);
         fitnessPlanElement.innerHTML = formattedPlan;
 
@@ -64,29 +60,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// Helper function to format the fitness plan text with HTML
 function formatFitnessPlan(planText) {
     return planText
-        // Convert line breaks to HTML
         .split('\n').map(line => {
-            // Check if line is a header (contains numbers followed by dot)
             if (/^\d+\./.test(line)) {
                 return `<h2>${line}</h2>`;
             }
-            // Check if line is a subheader (contains letters followed by dot)
             else if (/^[a-zA-Z]\./.test(line)) {
                 return `<h3>${line}</h3>`;
             }
-            // Regular text
             else {
                 return `<p>${line}</p>`;
             }
         }).join('')
-        // Make important text bold
         .replace(/\*([^*]+)\*/g, '<strong>$1</strong>')
-        // Create lists
         .replace(/• (.*)/g, '<li>$1</li>')
-        // Wrap lists in ul tags
         .replace(/<li>.*?(<h|$)/g, match => 
             match.replace(/(<h|$)/, '</ul>$1'));
 } 

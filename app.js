@@ -4,21 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        // Get all select elements
         const selectElements = form.querySelectorAll('select');
         let isValid = true;
         let firstInvalidField = null;
 
-        // Check each select element
         selectElements.forEach(select => {
-            // Remove any existing error styling
             select.classList.remove('invalid-field');
             const label = select.previousElementSibling;
             if (label) {
                 label.classList.remove('invalid-label');
             }
 
-            // Check if a value is selected
             if (!select.value) {
                 isValid = false;
                 select.classList.add('invalid-field');
@@ -31,14 +27,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // If form is not valid, show error message and stop submission
         if (!isValid) {
             alert("Please fill in all required fields");
             firstInvalidField.scrollIntoView({ behavior: 'smooth', block: 'center' });
             return;
         }
 
-        // Collect form data
         const formData = {
             age: document.getElementById("age").value,
             gender: document.getElementById("gender").value,
@@ -64,8 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            // Send data to the server
-            const response = await fetch("https://fitness-plan-genrator-production.up.railway.app/submit", {
+            const response = await fetch("http://localhost:5000/submit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -75,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
             
             if (response.ok) {
                 const data = await response.json();
-                // Redirect to result page with userId
                 window.location.href = `result.html?userId=${data.userId}`;
             } else {
                 alert("Failed to submit the form. Please try again.");
@@ -86,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Add change event listeners to remove error styling when user selects a value
     form.querySelectorAll('select').forEach(select => {
         select.addEventListener('change', () => {
             if (select.value) {
