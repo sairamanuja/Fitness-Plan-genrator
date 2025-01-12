@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Fitness Plan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .fitness-plan {
+            white-space: pre-wrap;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .loading-progress {
+            width: 200px;
+            height: 4px;
+            background: #f3f3f3;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .loading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #3498db;
+            border-radius: 4px;
+            animation: progress 2s ease-in-out infinite;
+        }
+
+        .error {
+            color: #dc3545;
+            padding: 20px;
+            text-align: center;
+            background: #ffe6e6;
+            border-radius: 8px;
+            border: 1px solid #dc3545;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes progress {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
+
+        /* Add some animation for the fitness plan appearance */
+        .fitness-plan {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Personalized Fitness Plan</h1>
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <div class="loading-text">Generating your personalized fitness plan...</div>
+            <div class="loading-progress">
+                <div class="loading-progress-bar"></div>
+            </div>
+        </div>
+        <div id="error" class="error" style="display: none;">
+        </div>
+        <div id="fitness-plan" class="fitness-plan" style="display: none;">
+        </div>
+    </div>
+    <script src="result.js"></script>
+</body>
+</html> 

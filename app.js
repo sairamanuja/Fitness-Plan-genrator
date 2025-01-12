@@ -39,10 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify(formData)
             });
             
-
             if (response.ok) {
-                alert("Form submitted successfully!");
-                form.reset(); // Reset the form
+                const data = await response.json();
+                // Redirect to result page with userId
+                window.location.href = `result.html?userId=${data.userId}`;
             } else {
                 alert("Failed to submit the form. Please try again.");
             }
