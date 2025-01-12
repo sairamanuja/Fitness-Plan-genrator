@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 const formSchema = new mongoose.Schema({
     age: { type: String, required: true },
@@ -24,4 +24,4 @@ const formSchema = new mongoose.Schema({
     challenges: { type: String, required: true }
 });
 
-module.exports = mongoose.model("Form", formSchema);
+export default mongoose.model('Form', formSchema);
