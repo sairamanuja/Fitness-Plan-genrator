@@ -7,7 +7,17 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: '*' }));
+
+// Configure CORS
+const corsOptions = {
+    origin: 'https://fitness-plan-genrator-production.up.railway.app', // Replace with your actual frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 
 // MongoDB connection string
 const uri = "mongodb+srv://ramanuja39:sairama%40123@cluster0.580qe.mongodb.net/form";
@@ -172,7 +182,7 @@ app.get('/fitness-plan', (req, res) => {
 });
 
 // Start the server
-const PORT =  5000;
+const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });

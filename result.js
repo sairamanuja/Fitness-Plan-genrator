@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:5000/generate-fitness-plan/${userId}`);
+        const response = await fetch(`https://fitness-plan-genrator-production.up.railway.app/generate-fitness-plan/${userId}`);
         
         if (!response.ok) {
             throw new Error('Failed to generate fitness plan');

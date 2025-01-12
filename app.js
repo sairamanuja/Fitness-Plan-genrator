@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
             // Send data to the server
-            const response = await fetch("http://localhost:5000/submit", {
+            const response = await fetch("https://fitness-plan-genrator-production.up.railway.app/submit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
