@@ -1,45 +1,32 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import dotenv from "dotenv"
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import Form from './formSchema.js';
 const app = express();
+dotenv.config();
 
-// Middleware
 app.use(express.json());
 
-// Configure CORS
-const corsOptions = {
-    origin: 'https://fitness-plan-genrator.vercel.app', // Replace with your actual frontend domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+app.use(cors());
 
-app.use(cors(corsOptions));
 
-// MongoDB connection string
-const uri = "mongodb+srv://ramanuja39:sairama%40123@cluster0.580qe.mongodb.net/form";
+const uri = process.env.MONGODB_URL;
 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Error connecting to MongoDB:', err));
 
-// Define a Mongoose Schema
 
-// Google AI Configuration
-const genAI = new GoogleGenerativeAI("AIzaSyA81LE2JAgxYY78kftNJ312fhQg_7mmjKU");
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 
-// Route to handle form submission
 app.post('/submit', async (req, res) => {
     try {
-        // Save form data to MongoDB
         const form = new Form(req.body);
         const savedForm = await form.save();
 
-        // Respond with the generated userId
         res.status(200).json({ userId: savedForm._id });
     } catch (error) {
         console.error("Error saving form data:", error);
@@ -47,7 +34,6 @@ app.post('/submit', async (req, res) => {
     }
 });
 
-// Route to retrieve form data based on user ID
 app.get('/retrieve/:userId', async (req, res) => {
     const userId = req.params.userId.trim();
     try {
@@ -65,7 +51,6 @@ app.get('/retrieve/:userId', async (req, res) => {
     }
 });
 
-// Route to generate a personalized fitness plan using Google AI
 app.get('/generate-fitness-plan/:userId', async (req, res) => {
     const { userId } = req.params;
 
@@ -130,7 +115,6 @@ This plan should focus on creating a balanced and sustainable approach to fitnes
     }
 });
 
-// Route to update form data
 app.put('/update/:userId', async (req, res) => {
     const userId = req.params.userId.trim();
     try {
@@ -155,7 +139,6 @@ app.put('/update/:userId', async (req, res) => {
     }
 });
 
-// Route to delete form data
 app.delete('/delete/:userId', async (req, res) => {
     const userId = req.params.userId.trim();
     try {
@@ -176,12 +159,10 @@ app.delete('/delete/:userId', async (req, res) => {
     }
 });
 
-// Route to serve index2.html
 app.get('/fitness-plan', (req, res) => {
     res.sendFile('index2.html', { root: '../' });
 });
 
-// Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
