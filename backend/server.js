@@ -7,7 +7,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 // MongoDB connection string
 const uri = "mongodb+srv://ramanuja39:sairama%40123@cluster0.580qe.mongodb.net/form";
@@ -172,7 +172,7 @@ app.get('/fitness-plan', (req, res) => {
 });
 
 // Start the server
-const PORT = process.env.PORT || 5000;
+const PORT =  5000;
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
