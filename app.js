@@ -1,6 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
 
+    // Function to handle select changes and show/hide input fields
+    function handleSpecifyOption(select) {
+        const currentValue = select.value;
+        let inputField = select.nextElementSibling;
+        
+        // Remove existing input field if it exists
+        if (inputField && inputField.classList.contains('specify-input')) {
+            inputField.remove();
+        }
+
+        // Check if the selected option requires specification
+        if (currentValue === 'other' || currentValue === 'yes') {
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'specify-input';
+            input.placeholder = 'Please specify...';
+            input.required = true;
+            select.parentNode.insertBefore(input, select.nextSibling);
+        }
+    }
+
+    // Add event listeners to all select elements
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', () => {
+            handleSpecifyOption(select);
+            if (select.value) {
+                select.classList.remove('invalid-field');
+                const label = select.previousElementSibling;
+                if (label) {
+                    label.classList.remove('invalid-label');
+                }
+            }
+        });
+    });
+
+    // Modified form submission handler
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
 
@@ -25,6 +61,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     firstInvalidField = select;
                 }
             }
+
+            // Validate specification input if required
+            const specifyInput = select.nextElementSibling;
+            if ((select.value === 'other' || select.value === 'yes') && 
+                specifyInput && specifyInput.classList.contains('specify-input')) {
+                if (!specifyInput.value.trim()) {
+                    isValid = false;
+                    specifyInput.classList.add('invalid-field');
+                    if (!firstInvalidField) {
+                        firstInvalidField = specifyInput;
+                    }
+                }
+            }
         });
 
         if (!isValid) {
@@ -33,32 +82,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const formData = {
-            age: document.getElementById("age").value,
-            gender: document.getElementById("gender").value,
-            fitnessLevel: document.getElementById("fitness-level").value,
-            physicalActivity: document.getElementById("physical-activity").value,
-            weight: document.getElementById("weight").value,
-            height: document.getElementById("height").value,
-            goal: document.getElementById("goal").value,
-            specificTarget: document.getElementById("specific-target").value,
-            medicalCondition: document.getElementById("medical-condition").value,
-            diet: document.getElementById("diet").value,
-            medications: document.getElementById("medications").value,
-            workoutType: document.getElementById("workout-type").value,
-            workoutDays: document.getElementById("workout-days").value,
-            workoutLength: document.getElementById("workout-length").value,
-            dietRecommendations: document.getElementById("diet-recommendations").value,
-            meals: document.getElementById("meals").value,
-            snacking: document.getElementById("snacking").value,
-            progressFrequency: document.getElementById("progress-frequency").value,
-            progressMetrics: document.getElementById("progress-metrics").value,
-            motivation: document.getElementById("motivation").value,
-            challenges: document.getElementById("challenges").value
-        };
+        // Collect form data including specifications
+        const formData = {};
+        selectElements.forEach(select => {
+            let value = select.value;
+            const specifyInput = select.nextElementSibling;
+            if ((value === 'other' || value === 'yes') && 
+                specifyInput && specifyInput.classList.contains('specify-input')) {
+                value += `: ${specifyInput.value.trim()}`;
+            }
+            formData[select.id.replace(/-/g, '')] = value;
+        });
 
         try {
-            const response = await fetch("http://localhost:5000/submit", {
+            const response = await fetch("http://localhost:5001/submit", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -76,17 +113,5 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Error submitting form:", error);
             alert("An error occurred. Please try again later.");
         }
-    });
-
-    form.querySelectorAll('select').forEach(select => {
-        select.addEventListener('change', () => {
-            if (select.value) {
-                select.classList.remove('invalid-field');
-                const label = select.previousElementSibling;
-                if (label) {
-                    label.classList.remove('invalid-label');
-                }
-            }
-        });
     });
 });

@@ -4,8 +4,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,8 +20,7 @@
     "llamaai": "^1.0.4",
     "mongoose": "^8.9.4",
     "nodemon": "^3.1.9",
-    "openai": "^4.78.1",
-    "vishnu": "file:"
+    "openai": "^4.78.1"
   },
   "type": "module"
 }

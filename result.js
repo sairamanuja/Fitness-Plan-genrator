@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     try {
-        const response = await fetch(`http://localhost:5000/generate-fitness-plan/${userId}`);
+        const response = await fetch(`http://localhost:5001/generate-fitness-plan/${userId}`);
         
         if (!response.ok) {
             throw new Error('Failed to generate fitness plan');
@@ -61,20 +61,60 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function formatFitnessPlan(planText) {
-    return planText
-        .split('\n').map(line => {
-            if (/^\d+\./.test(line)) {
-                return `<h2>${line}</h2>`;
+    // First, wrap the entire content in a styled div
+    let formattedText = '<div class="fitness-plan-content">';
+    
+    // Format the header section (user info)
+    const lines = planText.split('\n');
+    let inUserInfo = true;
+    let currentSection = '';
+    
+    lines.forEach(line => {
+        // Check if we're starting a new numbered section
+        if (/^\d+\./.test(line)) {
+            inUserInfo = false;
+            currentSection = line.trim();
+            formattedText += `
+                <div class="plan-section">
+                    <h2 class="section-title">${line}</h2>
+                    <div class="section-content">`;
+        }
+        // Format user info section
+        else if (inUserInfo) {
+            if (line.startsWith('**')) {
+                formattedText += `<h1 class="plan-title">${line.replace(/\*\*/g, '')}</h1>`;
+            } else if (line.includes(':')) {
+                const [key, value] = line.split(':').map(part => part.trim());
+                formattedText += `
+                    <div class="info-item">
+                        <span class="info-label">${key}:</span>
+                        <span class="info-value">${value}</span>
+                    </div>`;
+            } else if (line.trim()) {
+                formattedText += `<p class="info-text">${line}</p>`;
             }
-            else if (/^[a-zA-Z]\./.test(line)) {
-                return `<h3>${line}</h3>`;
+        }
+        // Format section content
+        else {
+            if (line.startsWith('-') || line.startsWith('•')) {
+                formattedText += `<li class="plan-item">${line.substring(1).trim()}</li>`;
+            } else if (line.includes(':') && !line.startsWith(' ')) {
+                formattedText += `<h3 class="subsection-title">${line}</h3>`;
+            } else if (line.trim()) {
+                formattedText += `<p class="plan-text">${line}</p>`;
             }
-            else {
-                return `<p>${line}</p>`;
-            }
-        }).join('')
-        .replace(/\*([^*]+)\*/g, '<strong>$1</strong>')
-        .replace(/• (.*)/g, '<li>$1</li>')
-        .replace(/<li>.*?(<h|$)/g, match => 
-            match.replace(/(<h|$)/, '</ul>$1'));
+        }
+        
+        // Close section div if we're starting a new section
+        if (/^\d+\./.test(line) && currentSection) {
+            formattedText += `
+                    </div>
+                </div>`;
+        }
+    });
+    
+    // Close the last section and main container
+    formattedText += `</div></div>`;
+    
+    return formattedText;
 } 

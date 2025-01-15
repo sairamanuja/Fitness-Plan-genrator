@@ -47,7 +47,8 @@ h1 {
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    position: relative;
+    margin-bottom: 20px;
 }
 
 label {
@@ -149,4 +150,84 @@ input:focus {
 
 .invalid-field {
     animation: shake 0.4s ease-in-out;
+}
+
+.other-input {
+    display: none;
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.other-input:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.other-input.invalid-field {
+    border-color: #e74c3c;
+    background-color: #fff5f5;
+}
+
+/* Animation for other input appearance */
+.other-input {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.specify-input {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.specify-input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.specify-input.invalid-field {
+    border-color: #dc3545;
+    background-color: #fff8f8;
+}
+
+.specify-input::placeholder {
+    color: #999;
+}
+
+/* Animation for input field appearance */
+.specify-input {
+    animation: slideDown 0.3s ease-out forwards;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
