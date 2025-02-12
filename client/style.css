@@ -199,7 +199,7 @@ input:focus {
     border-radius: 4px;
     font-size: 16px;
     transition: border-color 0.3s ease;
-    kerning: auto;
+    
 }
 
 .specify-input:focus {
