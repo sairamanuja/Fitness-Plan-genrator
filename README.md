@@ -31,10 +31,7 @@ The Fitness Plan Generator is an advanced tool designed to create customized wor
   - `langchain/text_splitter` (RecursiveCharacterTextSplitter for splitting text into chunks)
   - `langchain/vectorstores/memory` (MemoryVectorStore for in-memory vector storage)
   - `@langchain/google-genai` (GoogleGenerativeAIEmbeddings for generating embeddings using Gemini)
-- **Other Tools**:
-  - Bootstrap (for styling)
-  - Nodemailer (for sending fitness plans via email)
-
+  
 ## Installation
 
 1. Clone the repository:
