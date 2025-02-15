@@ -45,7 +45,7 @@ The Fitness Plan Generator is an advanced tool designed to create customized wor
 
 3. **Start the app**:
     ```bash
-   npm start
+   npm run dev
 ### 3. Set up environment variables:
 Create a `.env` file in the root directory and add the following variables:
    ```.env
