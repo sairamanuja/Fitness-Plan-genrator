@@ -38,12 +38,15 @@ The Fitness Plan Generator is an advanced tool designed to create customized wor
    ```bash
    git clone https://github.com/sairamanuja/Fitness-Plan-Generator.git
    cd Fitness-Plan-Generator
+2. **Change directory**:
+    ```bash
+   cd backend
 
-2. **Install dependencies**:
+3. **Install dependencies**:
    ```bash
    npm install
 
-3. **Start the app**:
+4. **Start the backend**:
     ```bash
    npm run dev
 ### 3. Set up environment variables:
